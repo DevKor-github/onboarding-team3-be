@@ -1,5 +1,6 @@
 package Auth;
 
+import Auth.Login.JwtFilter;
 import Auth.Login.JwtUtil;
 import Auth.Login.LoginFilter;
 import org.springframework.context.annotation.Bean;
@@ -55,8 +56,15 @@ public class SecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/login", "/", "/join").permitAll()
                         .anyRequest().authenticated());
+
+        LoginFilter loginFilter = new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil);
+        loginFilter.setFilterProcessesUrl("/api/auth/login");
+
         http
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtFilter(jwtUtil), LoginFilter.class);
+
+        http
+                .addFilterAt(loginFilter, UsernamePasswordAuthenticationFilter.class);
 
         //세션 설정
         http
