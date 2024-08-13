@@ -54,7 +54,7 @@ public class SecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
-                            .requestMatchers("/","/login", "/test", "/join", "/api/auth/join", "/api/auth/test", "/api/auth/login").permitAll()
+                            .requestMatchers("/api/auth/join", "/api/auth/login").permitAll()
                             .anyRequest().authenticated());
 
         LoginFilter loginFilter = new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil);
