@@ -1,6 +1,6 @@
-package Auth.Login;
+package org.example.devkorchat.Auth.Login;
 
-import User.UserEntity;
+import org.example.devkorchat.User.UserEntity;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +23,7 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
+        System.out.println("auth attempt");
         String authorization = request.getHeader("Authorization");
 
         //authorization 헤더 없을 경우

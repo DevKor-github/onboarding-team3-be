@@ -1,8 +1,8 @@
-package Auth.Join;
+package org.example.devkorchat.Auth.Join;
 
 
-import User.UserEntity;
-import User.UserRepository;
+import org.example.devkorchat.User.UserEntity;
+import org.example.devkorchat.User.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,6 +28,7 @@ public class JoinService {
         UserEntity newUser = new UserEntity(username, password, role);
 
         userRepository.save(newUser);
+        System.out.println("join complete");
 
     }
 

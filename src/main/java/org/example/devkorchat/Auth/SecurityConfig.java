@@ -1,8 +1,8 @@
-package Auth;
+package org.example.devkorchat.Auth;
 
-import Auth.Login.JwtFilter;
-import Auth.Login.JwtUtil;
-import Auth.Login.LoginFilter;
+import org.example.devkorchat.Auth.Login.JwtFilter;
+import org.example.devkorchat.Auth.Login.JwtUtil;
+import org.example.devkorchat.Auth.Login.LoginFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -54,8 +54,8 @@ public class SecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/", "/join").permitAll()
-                        .anyRequest().authenticated());
+                            .requestMatchers("/","/login", "/test", "/join", "/api/auth/join", "/api/auth/test", "/api/auth/login").permitAll()
+                            .anyRequest().authenticated());
 
         LoginFilter loginFilter = new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil);
         loginFilter.setFilterProcessesUrl("/api/auth/login");

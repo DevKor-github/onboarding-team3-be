@@ -1,6 +1,6 @@
-package Auth.Login;
+package org.example.devkorchat.Auth.Login;
 
-import User.UserEntity;
+import org.example.devkorchat.User.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

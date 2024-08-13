@@ -1,4 +1,4 @@
-package User;
+package org.example.devkorchat.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
