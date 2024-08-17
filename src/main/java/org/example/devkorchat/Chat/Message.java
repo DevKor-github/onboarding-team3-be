@@ -10,7 +10,7 @@ import lombok.*;
 public class Message {
     private String type;
     private String sender;
-    private String receiver;
+    private String roomNumber;
     private Object data;
 
     public void setSender(String sender){

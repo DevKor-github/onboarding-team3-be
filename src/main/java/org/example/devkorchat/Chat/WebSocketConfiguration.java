@@ -12,7 +12,7 @@ public class WebSocketConfiguration implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry
-                .addHandler(signalingSocketHandler(), "/room") //server endpoint: url:port/room
+                .addHandler(signalingSocketHandler(), "/api/chat/*") //server endpoint: url:port/room
                 .setAllowedOrigins("*"); //CORS 설정: 모든 요청 수용
     }
 
