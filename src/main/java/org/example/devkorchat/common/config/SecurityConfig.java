@@ -1,8 +1,8 @@
-package org.example.devkorchat.Auth;
+package org.example.devkorchat.common.config;
 
-import org.example.devkorchat.Auth.Login.JwtFilter;
-import org.example.devkorchat.Auth.Login.JwtUtil;
-import org.example.devkorchat.Auth.Login.LoginFilter;
+import org.example.devkorchat.auth.filter.JwtFilter;
+import org.example.devkorchat.auth.filter.JwtUtil;
+import org.example.devkorchat.auth.filter.LoginFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

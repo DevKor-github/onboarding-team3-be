@@ -1,8 +1,8 @@
-package org.example.devkorchat.Auth.Join;
+package org.example.devkorchat.auth.join;
 
 
-import org.example.devkorchat.User.UserEntity;
-import org.example.devkorchat.User.UserRepository;
+import org.example.devkorchat.user.UserEntity;
+import org.example.devkorchat.user.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

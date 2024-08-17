@@ -1,7 +1,8 @@
-package org.example.devkorchat.Chat;
+package org.example.devkorchat.chat.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.devkorchat.chat.ChatEntity;
 
 @Getter
 @NoArgsConstructor

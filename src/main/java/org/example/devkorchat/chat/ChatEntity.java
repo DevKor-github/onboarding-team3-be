@@ -1,4 +1,4 @@
-package org.example.devkorchat.Chat;
+package org.example.devkorchat.chat;
 
 import jakarta.persistence.*;
 import lombok.Builder;

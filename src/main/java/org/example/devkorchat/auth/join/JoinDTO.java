@@ -1,4 +1,4 @@
-package org.example.devkorchat.Auth.Join;
+package org.example.devkorchat.auth.join;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

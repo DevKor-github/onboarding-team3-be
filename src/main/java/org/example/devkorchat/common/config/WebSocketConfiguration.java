@@ -1,5 +1,6 @@
-package org.example.devkorchat.Chat;
+package org.example.devkorchat.common.config;
 
+import org.example.devkorchat.common.handler.WebSocketHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;

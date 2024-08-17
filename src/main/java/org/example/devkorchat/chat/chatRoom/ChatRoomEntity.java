@@ -1,9 +1,9 @@
-package org.example.devkorchat.Chat;
+package org.example.devkorchat.chat.chatRoom;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.example.devkorchat.User.UserEntity;
+import org.example.devkorchat.user.UserEntity;
 
 import java.time.LocalDateTime;
 

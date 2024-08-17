@@ -1,6 +1,7 @@
-package org.example.devkorchat.Auth.Login;
+package org.example.devkorchat.auth.filter;
 
-import org.example.devkorchat.User.UserEntity;
+import org.example.devkorchat.auth.userDetails.CustomUserDetails;
+import org.example.devkorchat.user.UserEntity;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

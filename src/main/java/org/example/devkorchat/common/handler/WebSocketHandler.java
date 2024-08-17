@@ -1,8 +1,9 @@
-package org.example.devkorchat.Chat;
+package org.example.devkorchat.common.handler;
 
 
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import org.example.devkorchat.chat.dto.Message;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
