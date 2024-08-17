@@ -19,6 +19,7 @@ public class ChatEntity {
     private String username;
     private String message;
     private int roomNumber;
+
     @Column(name = "CREATED_AT", nullable = false)
     private LocalDateTime createdAt;
 

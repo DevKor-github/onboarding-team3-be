@@ -4,15 +4,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.devkorchat.chat.chatRoom.ChatRoomEntity;
 
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor
 public class ChatRoomDTO {
     private int roomNumber;
     private String username;
     private String message;
-    private String messageCreatedDate;
+    private LocalDateTime messageCreatedDate;
 
-    public ChatRoomDTO(ChatRoomEntity chatRoom, String message, String messageCreatedDate){
+    public ChatRoomDTO(ChatRoomEntity chatRoom, String message, LocalDateTime messageCreatedDate){
         this.roomNumber = chatRoom.getRoomNumber();
         this.username = chatRoom.getUser2().getUsername();
         this.message = message;

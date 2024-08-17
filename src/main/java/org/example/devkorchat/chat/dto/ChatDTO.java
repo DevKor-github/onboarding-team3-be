@@ -12,6 +12,12 @@ public class ChatDTO {
     private String message;
     private int roomNumber;
 
+    public ChatDTO(String username, String message, int roomNumber) {
+        this.username = username;
+        this.message = message;
+        this.roomNumber = roomNumber;
+    }
+
     public ChatEntity toEntity(){
         return ChatEntity.builder()
                 .username(username)

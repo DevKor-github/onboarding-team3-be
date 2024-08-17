@@ -1,6 +1,5 @@
 package org.example.devkorchat.common.handler;
 
-
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.example.devkorchat.chat.dto.Message;
@@ -21,7 +20,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 
         String sessionId = session.getId();
-        String url = Objects.requireNonNull(session.getUri()).toString();
+        String url = session.getUri().toString();
         String roomNumber = url.split("/api/chat/")[1];
         int idx = sessions.size();
         boolean flag = false;

@@ -8,5 +8,5 @@ import java.util.List;
 @Repository
 public interface ChatRepository extends JpaRepository<ChatEntity, String> {
     List<ChatEntity> findByRoomNumber(int roomNumber);
-    List<ChatEntity> findAllByRoomNumber(int roomNumber);
+    ChatEntity findTopByRoomNumberOrderByCreatedAtDesc(int roomNumber);
 }
