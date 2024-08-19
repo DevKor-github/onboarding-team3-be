@@ -1,7 +1,9 @@
 package org.example.devkorchat.chat;
 
+import org.example.devkorchat.chat.chatJoin.ChatJoinEntity;
 import org.example.devkorchat.chat.chatRoom.ChatRoomEntity;
 import org.example.devkorchat.chat.chatRoom.ChatRoomRepository;
+import org.example.devkorchat.chat.chatJoin.ChatJoinRepository;
 import org.example.devkorchat.chat.dto.ChatDTO;
 import org.example.devkorchat.chat.dto.ChatRoomDTO;
 import org.example.devkorchat.user.UserEntity;
@@ -18,23 +20,26 @@ public class ChatService {
     private final ChatRoomRepository chatRoomRepository;
     private final UserRepository userRepository;
     private final ChatRepository chatRepository;
+    private final ChatJoinRepository chatJoinRepository;
 
-    public ChatService(ChatRoomRepository chatRoomRepository, UserRepository userRepository, ChatRepository chatRepository){
+    public ChatService(ChatRoomRepository chatRoomRepository, UserRepository userRepository, ChatRepository chatRepository, ChatJoinRepository chatJoinRepository){
         this.chatRoomRepository = chatRoomRepository;
         this.userRepository = userRepository;
         this.chatRepository = chatRepository;
+        this.chatJoinRepository = chatJoinRepository;
     }
 
-    public List<ChatRoomDTO> getChatRoomList() {
-        return chatRoomRepository.findAll().stream()
-                .map(chatRoom -> {
-                    ChatEntity recentChat = chatRepository.findTopByRoomNumberOrderByCreatedAtDesc(chatRoom.getRoomNumber());
-
+    public List<ChatRoomDTO> getChatRoomList(int userId) {
+        return chatJoinRepository.findByUserId(userId).stream()
+                .map(chatJoin -> {
+                    ChatEntity recentChat = chatRepository.findTopByRoomNumberOrderByCreatedAtDesc(chatJoin.getRoomNumber());
+                    //TODO: 채팅방 display name 가져오기
+                    
                     if(recentChat != null){
-                        return new ChatRoomDTO(chatRoom, recentChat.getMessage(), recentChat.getCreatedAt());
+                        return new ChatRoomDTO(chatJoin, "displayName", recentChat.getMessage(), recentChat.getCreatedAt());
                     }
                     else {
-                        return new ChatRoomDTO(chatRoom, "메시지 없음", null);
+                        return new ChatRoomDTO(chatJoin, "displayName", "메시지 없음", null);
                     }
                 })
                 .collect(Collectors.toList());
@@ -45,8 +50,12 @@ public class ChatService {
                 () -> new IllegalArgumentException("해당 채팅방이 존재하지 않습니다"));
     }
 
+
+    //일대일 채팅방 생성
     public ChatRoomEntity createRoom(UserEntity user, UserEntity user2){
-        ChatRoomEntity chatRoom = new ChatRoomEntity(user, user2);
+        ChatRoomEntity chatRoom = new ChatRoomEntity();
+        ChatJoinEntity chatJoinUser1 = new ChatJoinEntity(user, chatRoom);
+        ChatJoinEntity chatJoinUser2 = new ChatJoinEntity(user2, chatRoom);
         return this.chatRoomRepository.save(chatRoom);
     }
 
