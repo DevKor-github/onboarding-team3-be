@@ -2,6 +2,9 @@ package org.example.devkorchat.common.handler;
 
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import org.example.devkorchat.chat.ChatEntity;
+import org.example.devkorchat.chat.ChatService;
+import org.example.devkorchat.chat.dto.ChatDTO;
 import org.example.devkorchat.chat.dto.Message;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -13,8 +16,15 @@ import java.util.*;
 
 @Slf4j
 public class WebSocketHandler extends TextWebSocketHandler {
+
+    private final ChatService chatService;
+
     //Key: session ID; Value: session
     List<HashMap<String, Object>> sessions = new ArrayList<>();
+
+    public WebSocketHandler(ChatService chatService) {
+        this.chatService = chatService;
+    }
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -66,11 +76,14 @@ public class WebSocketHandler extends TextWebSocketHandler {
     @Override
     public void handleTextMessage (WebSocketSession session, TextMessage textMessage) throws Exception {
         Gson gson = new Gson();
-        Message message = gson.fromJson(textMessage.getPayload(), Message.class);
-        message.setSender(session.getId());
+        ChatEntity chatEntity = gson.fromJson(textMessage.getPayload(), ChatEntity.class);
 
-        String roomNumber = message.getRoomNumber();
+        ChatDTO chatDto = new ChatDTO(chatEntity.getUsername(), chatEntity.getMessage(), chatEntity.getRoomNumber());
+        chatService.saveChat(chatDto);
+
+        String roomNumber = Integer.toString(chatEntity.getRoomNumber());
         HashMap<String, Object> temp = new HashMap<>();
+
         for (HashMap<String, Object> stringObjectHashMap : sessions) {
             String sessionRoomNumber = (String) stringObjectHashMap.get("roomNumber");
             if (roomNumber.equals(sessionRoomNumber)) {
@@ -78,14 +91,13 @@ public class WebSocketHandler extends TextWebSocketHandler {
                 break;
             }
         }
-        //WebSocketSession receiver = sessions.get(message.getRoomNumber());
 
         for(String k: temp.keySet()){
             if(k.equals("roomNumber")) continue;
             WebSocketSession wss = (WebSocketSession) temp.get(k);
             if(wss != null) {
                 try{
-                    wss.sendMessage( new TextMessage(message.toString()));
+                    wss.sendMessage( new TextMessage(chatEntity.toString()));
                 } catch (IOException e) {
                    //TODO
                 }

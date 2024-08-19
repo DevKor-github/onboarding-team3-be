@@ -32,14 +32,24 @@ public class ChatService {
     public List<ChatRoomDTO> getChatRoomList(int userId) {
         return chatJoinRepository.findByUserId(userId).stream()
                 .map(chatJoin -> {
+
+                    //TODO: test displayName
+                    String displayName = null;
+                    List<ChatJoinEntity> chatJoinList = chatJoinRepository.findByUserId(userId);
+                    for (ChatJoinEntity chatJoinEntity : chatJoinList) {
+                        if (chatJoinEntity.getUser().getId() != userId) {
+                            displayName = chatJoinEntity.getUser().getUsername();
+                            break;
+                        }
+                    }
+
                     ChatEntity recentChat = chatRepository.findTopByRoomNumberOrderByCreatedAtDesc(chatJoin.getRoomNumber());
-                    //TODO: 채팅방 display name 가져오기
                     
                     if(recentChat != null){
-                        return new ChatRoomDTO(chatJoin, "displayName", recentChat.getMessage(), recentChat.getCreatedAt());
+                        return new ChatRoomDTO(chatJoin, displayName, recentChat.getMessage(), recentChat.getCreatedAt());
                     }
                     else {
-                        return new ChatRoomDTO(chatJoin, "displayName", "메시지 없음", null);
+                        return new ChatRoomDTO(chatJoin, displayName, "메시지 없음", null);
                     }
                 })
                 .collect(Collectors.toList());
@@ -65,10 +75,14 @@ public class ChatService {
 
         List<ChatEntity> deleteChat = this.chatRepository.findByRoomNumber(roomNumber);
         this.chatRepository.deleteAll(deleteChat);
+
+        List<ChatJoinEntity> deleteChatJoin = this.chatJoinRepository.findByChatRoomRoomNumber(roomNumber);
+        this.chatJoinRepository.deleteAll(deleteChatJoin);
+
         this.chatRoomRepository.delete(chatRoom);
     }
 
-    public void save(ChatDTO chatDto) {
+    public void saveChat(ChatDTO chatDto) {
         ChatEntity chat = chatDto.toEntity();
         chatRepository.save(chat);
     }
