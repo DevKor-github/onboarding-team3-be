@@ -1,8 +1,6 @@
 drop table if exists chat_room CASCADE;
 CREATE TABLE chat_room (
     ID SERIAL,
-    FOREIGN KEY (USER) REFERENCES user_account("ID") ON DELETE CASCADE,
-    FOREIGN KEY (USER2) REFERENCES user_account("ID") ON DELETE CASCADE,
     CREATED_AT TIMESTAMP,
     UPDATED_AT TIMESTAMP,
     PRIMARY KEY (ID)
