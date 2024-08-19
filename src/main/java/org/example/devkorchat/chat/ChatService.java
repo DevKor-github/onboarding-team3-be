@@ -34,8 +34,7 @@ public class ChatService {
                         return new ChatRoomDTO(chatRoom, recentChat.getMessage(), recentChat.getCreatedAt());
                     }
                     else {
-                        LocalDateTime now = LocalDateTime.now();
-                        return new ChatRoomDTO(chatRoom, "메시지 없음", now);
+                        return new ChatRoomDTO(chatRoom, "메시지 없음", null);
                     }
                 })
                 .collect(Collectors.toList());
