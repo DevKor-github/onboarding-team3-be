@@ -66,6 +66,8 @@ public class ChatService {
         ChatRoomEntity chatRoom = new ChatRoomEntity();
         ChatJoinEntity chatJoinUser1 = new ChatJoinEntity(user, chatRoom);
         ChatJoinEntity chatJoinUser2 = new ChatJoinEntity(user2, chatRoom);
+        this.chatJoinRepository.save(chatJoinUser1);
+        this.chatJoinRepository.save(chatJoinUser2);
         return this.chatRoomRepository.save(chatRoom);
     }
 
