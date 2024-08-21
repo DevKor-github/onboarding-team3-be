@@ -18,11 +18,11 @@ public class ChatJoinEntity {
     private int roomNumber; //id = room number
 
     @ManyToOne
-    @JoinColumn(name="user")
+    @JoinColumn(name="USER")
     private UserEntity user;
 
     @ManyToOne
-    @JoinColumn(name="chat_room")
+    @JoinColumn(name="CHAT_ROOM")
     private ChatRoomEntity chatRoom;
 
     @Column(name = "CREATED_AT", nullable = false)

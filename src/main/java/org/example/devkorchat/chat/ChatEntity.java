@@ -16,8 +16,13 @@ public class ChatEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "USERNAME", nullable = false)
     private String username;
+
+    @Column(name = "MESSAGE", nullable = false)
     private String message;
+
+    @Column(name = "ROOM_NUMBER", nullable = false)
     private int roomNumber;
 
     @Column(name = "CREATED_AT", nullable = false)

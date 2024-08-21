@@ -12,13 +12,13 @@ import java.util.List;
 @NoArgsConstructor
 public class ChatRoomDTO {
     private int roomNumber;
-    private String name;
+    private String displayName;
     private String message;
     private LocalDateTime messageCreatedDate;
 
-    public ChatRoomDTO(ChatJoinEntity chatJoin, String name, String message, LocalDateTime messageCreatedDate){
+    public ChatRoomDTO(ChatJoinEntity chatJoin, String displayName, String message, LocalDateTime messageCreatedDate){
         this.roomNumber = chatJoin.getRoomNumber();
-        this.name = name;
+        this.displayName = displayName;
         this.message = message;
         this.messageCreatedDate = messageCreatedDate;
     }
