@@ -54,6 +54,8 @@ public class JoinService {
 
         String username = joinDTO.getUsername();
         String password = joinDTO.getPassword();
+        String nickname = joinDTO.getNickname();
+        String profileURL = joinDTO.getProfileURL();
         String role = "general"; //set role: general by default
 
         if(!isValidUsername(username)){
@@ -67,7 +69,7 @@ public class JoinService {
 
         if(isExist) return;
 
-        UserEntity newUser = new UserEntity(username,bCryptPasswordEncoder.encode(password), role);
+        UserEntity newUser = new UserEntity(username,bCryptPasswordEncoder.encode(password), nickname, profileURL, role);
 
         userRepository.save(newUser);
         System.out.println("join complete");
