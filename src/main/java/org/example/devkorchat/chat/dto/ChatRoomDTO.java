@@ -14,13 +14,15 @@ public class ChatRoomDTO {
     private int roomNumber;
     private String displayName;
     private String username;
+    private String profileURL;
     private String message;
     private LocalDateTime messageCreatedDate;
 
-    public ChatRoomDTO(ChatJoinEntity chatJoin, String username, String displayName, String message, LocalDateTime messageCreatedDate){
+    public ChatRoomDTO(ChatJoinEntity chatJoin, String displayName, String username, String profileURL, String message, LocalDateTime messageCreatedDate){
         this.roomNumber = chatJoin.getRoomNumber();
-        this.username = username;
         this.displayName = displayName;
+        this.username = username;
+        this.profileURL = profileURL;
         this.message = message;
         this.messageCreatedDate = messageCreatedDate;
     }
