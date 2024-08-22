@@ -8,6 +8,7 @@ import org.example.devkorchat.chat.dto.ChatDTO;
 import org.example.devkorchat.chat.dto.ChatRoomDTO;
 import org.example.devkorchat.user.UserEntity;
 import org.example.devkorchat.user.UserRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -62,13 +63,23 @@ public class ChatService {
 
 
     //일대일 채팅방 생성
-    public ChatRoomEntity createRoom(UserEntity user, UserEntity user2){
+    public ChatRoomDTO createRoom(UserEntity user, UserEntity user2){
+
+        List<ChatRoomDTO> chatRoomDtos = getChatRoomList(user.getId());
+        for(ChatRoomDTO chatRoom: chatRoomDtos){
+            if(user2.getUsername().equals(chatRoom.getDisplayName())){
+                return chatRoom;
+            }
+        }
+
         ChatRoomEntity chatRoom = new ChatRoomEntity();
         ChatJoinEntity chatJoinUser1 = new ChatJoinEntity(user, chatRoom);
         ChatJoinEntity chatJoinUser2 = new ChatJoinEntity(user2, chatRoom);
         this.chatJoinRepository.save(chatJoinUser1);
         this.chatJoinRepository.save(chatJoinUser2);
-        return this.chatRoomRepository.save(chatRoom);
+        this.chatRoomRepository.save(chatRoom);
+
+        return new ChatRoomDTO(chatJoinUser2, user2.getUsername(), "메시지가 없습니다", null);
     }
 
     public void deleteRoom(int roomNumber){

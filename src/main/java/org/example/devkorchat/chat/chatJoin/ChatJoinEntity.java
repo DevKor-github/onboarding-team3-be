@@ -15,10 +15,11 @@ import java.time.LocalDateTime;
 public class ChatJoinEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int roomNumber; //id = room number
+    @JoinColumn(name="ID", nullable = false)
+    private int id;
 
     @ManyToOne
-    @JoinColumn(name="USER")
+    @JoinColumn(name="USER_ID")
     private UserEntity user;
 
     @ManyToOne
@@ -34,6 +35,10 @@ public class ChatJoinEntity {
     public ChatJoinEntity(UserEntity user, ChatRoomEntity chatRoom){
         this.user = user;
         this.chatRoom = chatRoom;
+    }
+
+    public int getRoomNumber(){
+        return chatRoom.getRoomNumber();
     }
 
 }

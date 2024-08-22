@@ -3,6 +3,7 @@ import org.example.devkorchat.chat.chatJoin.ChatJoinEntity;
 import org.example.devkorchat.chat.chatJoin.ChatJoinRepository;
 import org.example.devkorchat.chat.chatRoom.ChatRoomEntity;
 import org.example.devkorchat.chat.dto.ChatRoomDTO;
+import org.example.devkorchat.chat.dto.CreateRoomDTO;
 import org.example.devkorchat.user.UserEntity;
 import org.example.devkorchat.user.UserRepository;
 import org.springframework.http.ResponseEntity;
@@ -41,23 +42,17 @@ public class ChatController {
     }
 
     @PostMapping("/createRoom")
-    public ResponseEntity<ChatRoomDTO> createChatRoom(@RequestBody String username, Authentication authentication, Principal principal){
-        if(!this.userRepository.existsByUsername(username)){
+    public ResponseEntity<ChatRoomDTO> createChatRoom(@RequestBody CreateRoomDTO createRoomDTO, Authentication authentication, Principal principal){
+        String user_chat = createRoomDTO.getUsername();
+        if(!this.userRepository.existsByUsername(user_chat)){
             //TODO: return when user not found
             throw new RuntimeException("유저가 존재하지 않습니다.");
         }
+
         UserEntity user = this.userRepository.findByUsername(authentication.getName());
-        UserEntity other = this.userRepository.findByUsername(username);
-        List<ChatRoomDTO> chatRoomDtos = this.chatService.getChatRoomList(user.getId());
+        UserEntity other = this.userRepository.findByUsername(user_chat);
 
-        for(ChatRoomDTO chatRoom: chatRoomDtos){
-            if(username.equals(chatRoom.getDisplayName())){
-                return ResponseEntity.ok(chatRoom);
-            }
-        }
-
-        ChatRoomEntity chatRoom = this.chatService.createRoom(user, other);
-        ChatRoomDTO chatRoomDTO = new ChatRoomDTO(new ChatJoinEntity(other, chatRoom), other.getUsername(),"메시지가 없습니다.", null);
+        ChatRoomDTO chatRoomDTO = this.chatService.createRoom(user, other);
         return ResponseEntity.ok(chatRoomDTO);
     }
 
