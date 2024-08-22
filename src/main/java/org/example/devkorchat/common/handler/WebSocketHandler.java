@@ -1,6 +1,6 @@
 package org.example.devkorchat.common.handler;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import lombok.extern.slf4j.Slf4j;
 import org.example.devkorchat.chat.ChatEntity;
 import org.example.devkorchat.chat.ChatService;
@@ -12,6 +12,10 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 @Slf4j
@@ -75,7 +79,14 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void handleTextMessage (WebSocketSession session, TextMessage textMessage) throws Exception {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
+            @Override
+            public LocalDateTime deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+                Instant instant = Instant.ofEpochMilli(json.getAsJsonPrimitive().getAsLong());
+                return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+            }
+        }).create();
+
         ChatEntity chatEntity = gson.fromJson(textMessage.getPayload(), ChatEntity.class);
 
         ChatDTO chatDto = new ChatDTO(chatEntity.getUsername(), chatEntity.getMessage(), chatEntity.getRoomNumber());

@@ -26,10 +26,10 @@ public class ChatJoinEntity {
     @JoinColumn(name="CHAT_ROOM")
     private ChatRoomEntity chatRoom;
 
-    @Column(name = "CREATED_AT", nullable = false)
+    @Column(name = "CREATED_AT", nullable = true)
     private LocalDateTime createdAt;
 
-    @Column(name = "UPDATED_AT", nullable = false)
+    @Column(name = "UPDATED_AT", nullable = true)
     private LocalDateTime updatedAt;
 
     public ChatJoinEntity(UserEntity user, ChatRoomEntity chatRoom){
@@ -39,6 +39,19 @@ public class ChatJoinEntity {
 
     public int getRoomNumber(){
         return chatRoom.getRoomNumber();
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        LocalDateTime now = LocalDateTime.now();
+        this.createdAt = now;
+        this.updatedAt = now;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        LocalDateTime now = LocalDateTime.now();
+        this.updatedAt = now;
     }
 
 }

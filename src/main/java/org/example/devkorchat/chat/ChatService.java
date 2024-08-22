@@ -73,11 +73,11 @@ public class ChatService {
         }
 
         ChatRoomEntity chatRoom = new ChatRoomEntity();
+        this.chatRoomRepository.save(chatRoom);
         ChatJoinEntity chatJoinUser1 = new ChatJoinEntity(user, chatRoom);
         ChatJoinEntity chatJoinUser2 = new ChatJoinEntity(user2, chatRoom);
         this.chatJoinRepository.save(chatJoinUser1);
         this.chatJoinRepository.save(chatJoinUser2);
-        this.chatRoomRepository.save(chatRoom);
 
         return new ChatRoomDTO(chatJoinUser2, user2.getUsername(), "메시지가 없습니다", null);
     }

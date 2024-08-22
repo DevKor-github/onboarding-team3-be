@@ -46,6 +46,7 @@ public class ChatController {
         String user_chat = createRoomDTO.getUsername();
         if(!this.userRepository.existsByUsername(user_chat)){
             //TODO: return when user not found
+            System.out.println(user_chat);
             throw new RuntimeException("유저가 존재하지 않습니다.");
         }
 

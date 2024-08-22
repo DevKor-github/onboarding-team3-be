@@ -10,17 +10,30 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "chat")
+@Table(name = "chat_room")
 public class ChatRoomEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private int roomNumber; //id = room number;
 
-    @Column(name = "CREATED_AT", nullable = false)
+    @Column(name = "CREATED_AT", nullable = true)
     private LocalDateTime createdAt;
 
-    @Column(name = "UPDATED_AT", nullable = false)
+    @Column(name = "UPDATED_AT", nullable = true)
     private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        LocalDateTime now = LocalDateTime.now();
+        this.createdAt = now;
+        this.updatedAt = now;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        LocalDateTime now = LocalDateTime.now();
+        this.updatedAt = now;
+    }
 
 }

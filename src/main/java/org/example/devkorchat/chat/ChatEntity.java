@@ -26,7 +26,7 @@ public class ChatEntity {
     private int roomNumber;
 
     @Column(name = "CREATED_AT", nullable = false)
-    private LocalDateTime createdAt;
+        private LocalDateTime createdAt;
 
     @Column(name = "UPDATED_AT", nullable = false)
     private LocalDateTime updatedAt;
