@@ -1,7 +1,7 @@
-package org.example.devkorchat.Auth.Login;
+package org.example.devkorchat.auth.userDetails;
 
-import org.example.devkorchat.User.UserEntity;
-import org.example.devkorchat.User.UserRepository;
+import org.example.devkorchat.user.UserEntity;
+import org.example.devkorchat.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

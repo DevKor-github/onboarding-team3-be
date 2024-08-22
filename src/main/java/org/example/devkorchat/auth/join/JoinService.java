@@ -1,8 +1,8 @@
-package org.example.devkorchat.Auth.Join;
+package org.example.devkorchat.auth.join;
 
 
-import org.example.devkorchat.User.UserEntity;
-import org.example.devkorchat.User.UserRepository;
+import org.example.devkorchat.user.UserEntity;
+import org.example.devkorchat.user.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +54,8 @@ public class JoinService {
 
         String username = joinDTO.getUsername();
         String password = joinDTO.getPassword();
+        String nickname = joinDTO.getNickname();
+        String profileURL = joinDTO.getProfileURL();
         String role = "general"; //set role: general by default
 
         if(!isValidUsername(username)){
@@ -67,7 +69,7 @@ public class JoinService {
 
         if(isExist) return;
 
-        UserEntity newUser = new UserEntity(username,bCryptPasswordEncoder.encode(password), role);
+        UserEntity newUser = new UserEntity(username,bCryptPasswordEncoder.encode(password), nickname, profileURL, role);
 
         userRepository.save(newUser);
         System.out.println("join complete");

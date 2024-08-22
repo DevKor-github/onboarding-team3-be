@@ -1,6 +1,7 @@
-package org.example.devkorchat.Auth.Login;
+package org.example.devkorchat.auth.filter;
 
-import org.example.devkorchat.User.UserEntity;
+import org.example.devkorchat.auth.userDetails.CustomUserDetails;
+import org.example.devkorchat.user.UserEntity;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -46,8 +47,10 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String username = jwtUtil.getUsername(token);
         String role = jwtUtil.getRole(token);
+        String profile_URL = "null";
+        String nickname = "null";
 
-        UserEntity userEntity = new UserEntity(username, "tmppw", role);
+        UserEntity userEntity = new UserEntity(username, "tmppw", nickname, profile_URL, role);
 
         CustomUserDetails customUserDetails = new CustomUserDetails(userEntity);
 

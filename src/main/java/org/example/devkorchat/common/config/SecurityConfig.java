@@ -1,9 +1,9 @@
-package org.example.devkorchat.Auth;
+package org.example.devkorchat.common.config;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.example.devkorchat.Auth.Login.JwtFilter;
-import org.example.devkorchat.Auth.Login.JwtUtil;
-import org.example.devkorchat.Auth.Login.LoginFilter;
+import org.example.devkorchat.auth.filter.JwtFilter;
+import org.example.devkorchat.auth.filter.JwtUtil;
+import org.example.devkorchat.auth.filter.LoginFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -78,7 +78,7 @@ public class SecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
-                            .requestMatchers("/api/auth/join", "/api/auth/login").permitAll()
+                            .requestMatchers("/api/auth/join", "/api/auth/login", "/api/chat/*").permitAll()
                             .anyRequest().authenticated());
 
         LoginFilter loginFilter = new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil);
