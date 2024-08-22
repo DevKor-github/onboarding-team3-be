@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ChatRoomRepository extends JpaRepository<ChatRoomEntity, Long> {
+public interface ChatRoomRepository extends JpaRepository<ChatRoomEntity, Integer> {
     Optional<ChatRoomEntity> findByRoomNumber(int roomNumber);
 
 }
