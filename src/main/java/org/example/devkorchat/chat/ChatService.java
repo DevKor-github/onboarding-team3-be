@@ -37,7 +37,7 @@ public class ChatService {
                     //TODO: test displayName
                     String displayName = null;
                     String username = null;
-                    List<ChatJoinEntity> chatJoinList = chatJoinRepository.findByUserId(userId);
+                    List<ChatJoinEntity> chatJoinList = this.chatJoinRepository.findByChatRoomRoomNumber(chatJoin.getRoomNumber());
                     for (ChatJoinEntity chatJoinEntity : chatJoinList) {
                         if (chatJoinEntity.getUser().getId() != userId) {
                             displayName = chatJoinEntity.getUser().getNickname();

@@ -47,8 +47,10 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String username = jwtUtil.getUsername(token);
         String role = jwtUtil.getRole(token);
+        String profile_URL = "null";
+        String nickname = "null";
 
-        UserEntity userEntity = new UserEntity(username, "tmppw", role);
+        UserEntity userEntity = new UserEntity(username, "tmppw", nickname, profile_URL, role);
 
         CustomUserDetails customUserDetails = new CustomUserDetails(userEntity);
 
