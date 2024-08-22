@@ -36,10 +36,12 @@ public class ChatService {
 
                     //TODO: test displayName
                     String displayName = null;
+                    String username = null;
                     List<ChatJoinEntity> chatJoinList = chatJoinRepository.findByUserId(userId);
                     for (ChatJoinEntity chatJoinEntity : chatJoinList) {
                         if (chatJoinEntity.getUser().getId() != userId) {
-                            displayName = chatJoinEntity.getUser().getUsername();
+                            displayName = chatJoinEntity.getUser().getNickname();
+                            username = chatJoinEntity.getUser().getUsername();
                             break;
                         }
                     }
@@ -47,10 +49,10 @@ public class ChatService {
                     ChatEntity recentChat = chatRepository.findTopByRoomNumberOrderByCreatedAtDesc(chatJoin.getRoomNumber());
                     
                     if(recentChat != null){
-                        return new ChatRoomDTO(chatJoin, displayName, recentChat.getMessage(), recentChat.getCreatedAt());
+                        return new ChatRoomDTO(chatJoin, displayName, username, recentChat.getMessage(), recentChat.getCreatedAt());
                     }
                     else {
-                        return new ChatRoomDTO(chatJoin, displayName, "메시지 없음", null);
+                        return new ChatRoomDTO(chatJoin, displayName, username, "메시지 없음", null);
                     }
                 })
                 .collect(Collectors.toList());
@@ -79,7 +81,7 @@ public class ChatService {
         this.chatJoinRepository.save(chatJoinUser1);
         this.chatJoinRepository.save(chatJoinUser2);
 
-        return new ChatRoomDTO(chatJoinUser2, user2.getUsername(), "메시지가 없습니다", null);
+        return new ChatRoomDTO(chatJoinUser2, user2.getNickname(), user2.getUsername(), "메시지가 없습니다", null);
     }
 
     public void deleteRoom(int roomNumber){

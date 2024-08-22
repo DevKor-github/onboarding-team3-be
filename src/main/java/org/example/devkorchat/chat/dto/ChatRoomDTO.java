@@ -13,11 +13,13 @@ import java.util.List;
 public class ChatRoomDTO {
     private int roomNumber;
     private String displayName;
+    private String username;
     private String message;
     private LocalDateTime messageCreatedDate;
 
-    public ChatRoomDTO(ChatJoinEntity chatJoin, String displayName, String message, LocalDateTime messageCreatedDate){
+    public ChatRoomDTO(ChatJoinEntity chatJoin, String username, String displayName, String message, LocalDateTime messageCreatedDate){
         this.roomNumber = chatJoin.getRoomNumber();
+        this.username = username;
         this.displayName = displayName;
         this.message = message;
         this.messageCreatedDate = messageCreatedDate;
